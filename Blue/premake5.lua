@@ -1,8 +1,10 @@
 workspace "Blue"
     configurations {"Release"}
 
-project "Blue"
+project "blue"
     kind "StaticLib"
     language "C++"
-    location "bin"
-    files {"src/**.cpp", "include/**.h"}
+    files {"src/**.cpp", "include/**.h", "src/**.c"}
+    includedirs {"include"}
+    libdirs {"lib"}
+    links {"glfw3", "Cocoa.framework", "IOKit.framework", "CoreVideo.framework", "OpenGL.framework"}
