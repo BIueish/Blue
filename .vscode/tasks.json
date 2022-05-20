@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: compile library",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-O3",
+                "-c",
+                "./Blue/src/*.cpp",
+                "-I./Blue/include"
+            ],
+            "options": {
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: /usr/bin/clang"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: link library",
+            "command": "ar",
+            "args": [
+                "rcs",
+                "./bin/libblue.a",
+                "./out/*.o"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: /usr/bin/clang"
+        }
+    ]
+}
