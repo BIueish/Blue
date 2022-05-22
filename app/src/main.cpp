@@ -1,14 +1,18 @@
 #include "blue.h"
+#include "texture.h"
+#include <iostream>
 
 int main()
 {
-    blue::print();
     blue::init();
     blue::createWindow("Blue", 600, 600);
 
+    blue::Texture texture("./data/blue.png");
+
     while (blue::running())
     {
-        blue::clear(0, 0, 255, 255);
+        blue::clear(255, 255, 255, 255);
+        texture.render(0, 0);
         blue::update();
     }
 

@@ -1,4 +1,5 @@
 #include "blue.h"
+#include "texture.cpp"
 #include "glad/glad.h"
 #include "glfw/glfw3.h"
 #include <iostream>
@@ -7,6 +8,9 @@ GLFWwindow* window = nullptr;
 
 namespace blue
 {
+    int screenWidth;
+    int screenHeight;
+
     void print()
     {
         std::cout << "Welcome to Blue!\n";
@@ -31,6 +35,8 @@ namespace blue
 
         gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         glViewport(0, 0, width, height);
+        screenWidth = width;
+        screenHeight = height;
     }
 
     void clear(int r, int g, int b, int a = 255)

@@ -48,6 +48,7 @@ endif
 OBJECTS := \
 	$(OBJDIR)/blue.o \
 	$(OBJDIR)/glad.o \
+	$(OBJDIR)/texture.o \
 
 RESOURCES := \
 
@@ -112,6 +113,9 @@ $(OBJDIR)/blue.o: src/blue.cpp
 $(OBJDIR)/glad.o: src/glad.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/texture.o: src/texture.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
 -include $(OBJECTS:%.o=%.d)
 ifneq (,$(PCH))

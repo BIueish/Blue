@@ -1,5 +1,8 @@
 namespace blue
 {
+    extern int screenWidth;
+    extern int screenHeight;
+
     void print();
     void init();
     void createWindow(const char* title, int width, int height);
