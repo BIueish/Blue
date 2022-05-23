@@ -6,19 +6,17 @@
         {
             "type": "cppbuild",
             "label": "C/C++: compile library",
-            "command": "/usr/bin/clang++",
+            "command": "make",
             "args": [
-                "-O3",
-                "-c",
-                "./Blue/src/*.cpp",
-                "-I./Blue/include"
             ],
-            "options": {
-            },
+            "options": {},
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "detail": "compiler: /usr/bin/clang"
         },
         {
@@ -31,7 +29,7 @@
                 "./out/*.o"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "./Blue/"
             },
             "problemMatcher": [
                 "$gcc"

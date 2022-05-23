@@ -11,6 +11,11 @@ namespace blue
     int screenWidth;
     int screenHeight;
 
+    bool adjustWindow;
+
+    void framebufferResize(GLFWwindow* window, int width, int height);
+    void onWindowResize(int width, int height){};
+
     void print()
     {
         std::cout << "Welcome to Blue!\n";
@@ -28,15 +33,21 @@ namespace blue
         #endif
     }
 
-    void createWindow(const char* title, int width, int height)
+    void createWindow(const char* title, int width, int height, bool adjust)
     {
         window = glfwCreateWindow(width, height, title, NULL, NULL);
         glfwMakeContextCurrent(window);
 
         gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        glViewport(0, 0, width, height);
+        if (adjust)
+            glViewport(0, 0, width*2, height*2);
+        else
+            glViewport(0, 0, width, height);
         screenWidth = width;
         screenHeight = height;
+        adjustWindow = adjust;
+
+        glfwSetFramebufferSizeCallback(window, framebufferResize);
     }
 
     void clear(int r, int g, int b, int a = 255)
@@ -64,5 +75,13 @@ namespace blue
     bool running()
     {
         return !glfwWindowShouldClose(window);
+    }
+
+    void framebufferResize(GLFWwindow* window, int width, int height)
+    {
+        glViewport(0, 0, width, height);
+        screenWidth = width/2;
+        screenHeight = height/2;
+        onWindowResize(width, height);
     }
 }

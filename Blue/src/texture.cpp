@@ -8,16 +8,17 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace blue
 {
         Texture::Texture(const char* path, bool pixel)
         {
             textureID = loadTexture(path, pixel);
-            float vertices[] = {0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                                0.5, -0.5f, 0.0f, 1.0f, 1.0f,
-                                -0.5, -0.5f, 0.0f, 0.0f, 1.0f,
-                                -0.5f, 0.5f, 0.0f, 0.0f, 0.0f};
+            float vertices[] = {0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+                                0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+                                -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+                                -1.0f, 1.0f, 0.0f, 0.0f, 0.0f};
 
             unsigned int indices[] = {0, 1, 3, 1, 2, 3};
 
@@ -91,10 +92,7 @@ namespace blue
             glBindVertexArray(VAO);
             glUseProgram(shader);
 
-            glm::mat4 transform(1.0f);
-            transform = glm::translate(transform, glm::vec3(x/screenWidth, y/screenHeight, 0.0f));
-
-            glUniformMatrix4fv(glGetUniformLocation(shader, "transform"), 1, GL_FALSE, &transform[0][0]);
+            glUniform3f(glGetUniformLocation(shader, "translate"), (float)x/screenWidth*2.0f, -(float)y/screenHeight*2.0f, 0.0f);
 
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);

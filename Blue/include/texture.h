@@ -14,7 +14,7 @@ namespace blue
 
         Texture(const char* path, bool pixel=false);
 
-        void render(int x, int y);
+        void render(int x=0, int y=0);
 
     private:
         unsigned int loadTexture(const char* path, bool pixel);
@@ -23,10 +23,10 @@ namespace blue
                                     layout (location = 0) in vec3 pos;\n \
                                     layout (location = 1) in vec2 aTexPos;\n \
                                     out vec2 texPos;\n \
-                                    uniform mat4 transform;\n \
+                                    uniform vec3 translate;\n \
                                     void main()\n \
                                     { \n\
-                                        gl_Position = vec4(pos, 1.0);\n \
+                                        gl_Position = vec4(pos+translate, 1.0);\n \
                                         texPos = aTexPos;\n \
                                     }";
 
