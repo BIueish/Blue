@@ -80,8 +80,16 @@ namespace blue
     void framebufferResize(GLFWwindow* window, int width, int height)
     {
         glViewport(0, 0, width, height);
-        screenWidth = width/2;
-        screenHeight = height/2;
+        if (adjustWindow)
+        {
+            screenWidth = width/2;
+            screenHeight = height/2;
+        }
+        else
+        {
+            screenWidth = width;
+            screenHeight = height;
+        }
         onWindowResize(width, height);
     }
 }

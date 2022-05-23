@@ -15,9 +15,9 @@ namespace blue
         Texture::Texture(const char* path, bool pixel)
         {
             textureID = loadTexture(path, pixel);
-            float vertices[] = {0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-                                0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-                                -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            float vertices[] = {((float)width/screenWidth*2.0f)-1.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+                                ((float)width/screenWidth*2.0f)-1.0f, (-(float)height/screenHeight*2.0f)+1.0f, 0.0f, 1.0f, 1.0f,
+                                -1.0f, (-(float)height/screenHeight*2.0f)+1.0f, 0.0f, 0.0f, 1.0f,
                                 -1.0f, 1.0f, 0.0f, 0.0f, 0.0f};
 
             unsigned int indices[] = {0, 1, 3, 1, 2, 3};
