@@ -10,12 +10,16 @@ int main()
     blue::Texture texture("./data/blue.png");
     blue::Texture grass("./data/grass.png", true);
 
+    int deg = 0;
+
     while (blue::running())
     {
         blue::clear(255, 255, 255, 255);
         texture.render(0, 0, 32, 32);
-        grass.render(blue::screenWidth/2, blue::screenHeight/2, 64, 64);
+        grass.render(blue::screenWidth/2, blue::screenHeight/2, 64, 64, deg); 
         blue::update();
+
+        deg += 2;
     }
 
     blue::quit();

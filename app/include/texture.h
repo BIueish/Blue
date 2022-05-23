@@ -19,7 +19,7 @@ namespace blue
 
         ~Texture();
 
-        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1);
+        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1, int degrees=0);
 
     private:
         unsigned int loadTexture(const char* path, bool pixel);
@@ -30,9 +30,10 @@ namespace blue
                                     out vec2 texPos;\n \
                                     uniform vec3 translate;\n \
                                     uniform vec3 scale;\n \
+                                    uniform mat4 rotate;\n \
                                     void main()\n \
-                                    { \n vec3 pos2 = ((pos+vec3(1.0, -1.0, 0.0))*scale)-vec3(1.0, -1.0, 0.0);\n \
-                                        gl_Position = vec4(pos2+translate, 1.0);\n \
+                                    { \n vec4 pos2 = ((vec4((pos+vec3(1.0, -1.0, 0.0))*scale, 1.0)-vec4(0.5, -0.5, 0.0, 0.0))*rotate)-vec4(0.5, -0.5, 0.0, 0.0);\n \
+                                        gl_Position = pos2+vec4(translate, 0.0);\n \
                                         texPos = aTexPos;\n \
                                     }";
 

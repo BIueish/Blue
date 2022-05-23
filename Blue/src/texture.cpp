@@ -96,7 +96,7 @@ namespace blue
             glDeleteVertexArrays(1, &VAO);
         }
 
-        void Texture::render(int x, int y, int dwidth, int dheight)
+        void Texture::render(int x, int y, int dwidth, int dheight, int degrees)
         {
             glBindVertexArray(VAO);
             glUseProgram(shader);
@@ -106,7 +106,17 @@ namespace blue
             if (dheight > -1 && dwidth > -1)
                 glUniform3f(glGetUniformLocation(shader, "scale"), (float)dwidth/width, (float)dheight/height, 1.0f);
             else
+            {
                 glUniform3f(glGetUniformLocation(shader, "scale"), 1.0f, 1.0f, 1.0f);
+                dwidth = width;
+                dheight = height;
+            }
+
+            glm::mat4 rotate(1.0f);
+            rotate = glm::rotate(rotate, glm::radians((float)degrees), glm::vec3(0.0, 0.0, 1.0));
+            glUniformMatrix4fv(glGetUniformLocation(shader, "rotate"), 1, GL_FALSE, glm::value_ptr(rotate));
+
+            glUniform2f(glGetUniformLocation(shader, "centre"), (float)dwidth/screenWidth, -(float)dheight/screenHeight);
 
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);
