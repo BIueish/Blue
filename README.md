@@ -4,7 +4,15 @@ C++ 2D/3D rendering library (WIP)
 ## Current Features
 
 - Creating Windows
-- Drawing Textures (WIP) 
+- Drawing Textures (Scaled, Rotated around custom point, etc)
+- Input (Keyboard and Mouse WIP)
+- Text (WIP)
+- Shapes (Not decided, may be removed)
+- 3D objects and model loading (In planning)
+- Lighting (In planning)
+- Custom Shaders (In planning)
+- Bloom, SSAO, Skybox, Normal mapping etc. (Not decided, may be removed)
+- Music (Not decided, may be removed)
 
 
 ## Screenshots
