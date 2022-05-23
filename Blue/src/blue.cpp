@@ -1,5 +1,7 @@
 #include "blue.h"
+#include "key.h"
 #include "texture.cpp"
+#include "key.cpp"
 #include "glad/glad.h"
 #include "glfw/glfw3.h"
 #include <iostream>
@@ -13,8 +15,21 @@ namespace blue
 
     bool adjustWindow;
 
+    std::vector<Key> keys;
+
+    std::vector<Key> processKeys(bool keep)
+    {
+        std::vector<Key> inputKeys = keys;
+        if (!keep)
+            keys.clear();
+        return inputKeys;
+    }
+
     void framebufferResize(GLFWwindow* window, int width, int height);
-    void onWindowResize(int width, int height){};
+    void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+    {
+        keys.push_back(Key(key, scancode, action, mods));
+    }
 
     void print()
     {
@@ -33,6 +48,7 @@ namespace blue
         #endif
     }
 
+
     void createWindow(const char* title, int width, int height, bool adjust)
     {
         window = glfwCreateWindow(width, height, title, NULL, NULL);
@@ -48,6 +64,7 @@ namespace blue
         adjustWindow = adjust;
 
         glfwSetFramebufferSizeCallback(window, framebufferResize);
+        glfwSetKeyCallback(window, keyCallback);
     }
 
     void clear(int r, int g, int b, int a = 255)
@@ -90,6 +107,5 @@ namespace blue
             screenWidth = width;
             screenHeight = height;
         }
-        onWindowResize(width, height);
     }
 }
