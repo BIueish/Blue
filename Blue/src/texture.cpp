@@ -96,7 +96,7 @@ namespace blue
             glDeleteVertexArrays(1, &VAO);
         }
 
-        void Texture::render(int x, int y, int dwidth, int dheight, int degrees)
+        void Texture::render(int x, int y, int dwidth, int dheight, int degrees, float cx, float cy)
         {
             glBindVertexArray(VAO);
             glUseProgram(shader);
@@ -116,7 +116,7 @@ namespace blue
             rotate = glm::rotate(rotate, glm::radians((float)degrees), glm::vec3(0.0, 0.0, 1.0));
             glUniformMatrix4fv(glGetUniformLocation(shader, "rotate"), 1, GL_FALSE, glm::value_ptr(rotate));
 
-            glUniform2f(glGetUniformLocation(shader, "centre"), (float)dwidth/screenWidth, -(float)dheight/screenHeight);
+            glUniform2f(glGetUniformLocation(shader, "centre"), (float)(dwidth*(cx*2.0f))/screenWidth, -(float)(dheight*(cy*2.0f))/screenHeight);
 
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);
