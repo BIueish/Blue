@@ -1,3 +1,6 @@
+#ifndef TEXTURE_H
+#define TEXTURE_H
+
 namespace blue
 {
 
@@ -14,7 +17,9 @@ namespace blue
 
         Texture(const char* path, bool pixel=false);
 
-        void render(int x=0, int y=0);
+        ~Texture();
+
+        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1);
 
     private:
         unsigned int loadTexture(const char* path, bool pixel);
@@ -24,9 +29,10 @@ namespace blue
                                     layout (location = 1) in vec2 aTexPos;\n \
                                     out vec2 texPos;\n \
                                     uniform vec3 translate;\n \
+                                    uniform vec3 scale;\n \
                                     void main()\n \
-                                    { \n\
-                                        gl_Position = vec4(pos+translate, 1.0);\n \
+                                    { \n vec3 pos2 = ((pos+vec3(1.0, -1.0, 0.0))*scale)-vec3(1.0, -1.0, 0.0);\n \
+                                        gl_Position = vec4(pos2+translate, 1.0);\n \
                                         texPos = aTexPos;\n \
                                     }";
 
@@ -41,6 +47,6 @@ namespace blue
     
     };
 
-
-
 }
+
+#endif

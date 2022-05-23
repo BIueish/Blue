@@ -87,12 +87,26 @@ namespace blue
 
         }
 
-        void Texture::render(int x, int y)
+        Texture::~Texture()
+        {
+            glDeleteTextures(1, &textureID);
+            glDeleteProgram(shader);
+            glDeleteBuffers(1, &VBO);
+            glDeleteBuffers(1, &EBO);
+            glDeleteVertexArrays(1, &VAO);
+        }
+
+        void Texture::render(int x, int y, int dwidth, int dheight)
         {
             glBindVertexArray(VAO);
             glUseProgram(shader);
 
             glUniform3f(glGetUniformLocation(shader, "translate"), (float)x/screenWidth*2.0f, -(float)y/screenHeight*2.0f, 0.0f);
+
+            if (dheight > -1 && dwidth > -1)
+                glUniform3f(glGetUniformLocation(shader, "scale"), (float)dwidth/width, (float)dheight/height, 1.0f);
+            else
+                glUniform3f(glGetUniformLocation(shader, "scale"), 1.0f, 1.0f, 1.0f);
 
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);
