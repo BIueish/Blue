@@ -1,10 +1,10 @@
 # Blue
-C++ 3D rendering library (WIP)
+C++ 2D/3D rendering library (WIP)
 
 ## Current Features
 
 - Creating Windows
-- Drawing Textures (only at a fixed position and size as of now, WIP) 
+- Drawing Textures (WIP) 
 
 
 ## Screenshots
