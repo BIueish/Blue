@@ -1,4 +1,4 @@
-obj/blue.o: src/blue.cpp include/blue.h include/key.h src/texture.cpp \
+obj/blue.o: src/blue.cpp include/blue.h include/input.h src/texture.cpp \
   include/texture.h include/glad/glad.h include/KHR/khrplatform.h \
   include/stb_image.h include/glm/glm.hpp include/glm/detail/_fixes.hpp \
   include/glm/detail/setup.hpp include/glm/detail/../simd/platform.h \
@@ -205,11 +205,11 @@ obj/blue.o: src/blue.cpp include/blue.h include/key.h src/texture.cpp \
   include/glm/gtc/../mat2x4.hpp include/glm/gtc/../mat3x2.hpp \
   include/glm/gtc/../mat3x3.hpp include/glm/gtc/../mat3x4.hpp \
   include/glm/gtc/../mat4x2.hpp include/glm/gtc/../mat4x3.hpp \
-  include/glm/gtc/type_ptr.inl src/key.cpp include/glfw/glfw3.h
+  include/glm/gtc/type_ptr.inl src/input.cpp include/glfw/glfw3.h
 
 include/blue.h:
 
-include/key.h:
+include/input.h:
 
 src/texture.cpp:
 
@@ -717,6 +717,6 @@ include/glm/gtc/../mat4x3.hpp:
 
 include/glm/gtc/type_ptr.inl:
 
-src/key.cpp:
+src/input.cpp:
 
 include/glfw/glfw3.h:

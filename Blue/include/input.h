@@ -1,12 +1,12 @@
-#ifndef KEY_H
-#define KEY_H
+#ifndef INPUT_H
+#define INPUT_H
 
 #include <string>
 
 namespace blue
 {
 
-    class Key
+    class Input
     {
     public:
         int key;
@@ -14,11 +14,11 @@ namespace blue
         int scancode;
         int mods;
 
-        Key(int key, int scancode, int action, int mods) :
+        Input(int key, int scancode, int action, int mods) :
             key(key), scancode(scancode), action(action), mods(mods)
         {}
 
-        Key(){};
+        Input(){};
 
         const char* name();
 

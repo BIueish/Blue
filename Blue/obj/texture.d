@@ -1,5 +1,5 @@
 obj/texture.o: src/texture.cpp include/texture.h include/glad/glad.h \
-  include/KHR/khrplatform.h include/blue.h include/key.h \
+  include/KHR/khrplatform.h include/blue.h include/input.h \
   include/stb_image.h include/glm/glm.hpp include/glm/detail/_fixes.hpp \
   include/glm/detail/setup.hpp include/glm/detail/../simd/platform.h \
   include/glm/fwd.hpp include/glm/detail/qualifier.hpp \
@@ -215,7 +215,7 @@ include/KHR/khrplatform.h:
 
 include/blue.h:
 
-include/key.h:
+include/input.h:
 
 include/stb_image.h:
 

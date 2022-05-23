@@ -1,7 +1,7 @@
 #include "blue.h"
-#include "key.h"
+#include "input.h"
 #include "texture.cpp"
-#include "key.cpp"
+#include "input.cpp"
 #include "glad/glad.h"
 #include "glfw/glfw3.h"
 #include <iostream>
@@ -15,20 +15,37 @@ namespace blue
 
     bool adjustWindow;
 
-    std::vector<Key> keys;
+    std::vector<Input> events;
 
-    std::vector<Key> processKeys(bool keep)
+    std::vector<Input> processEvents(bool keep)
     {
-        std::vector<Key> inputKeys = keys;
+        std::vector<Input> inputEvents = events;
         if (!keep)
-            keys.clear();
-        return inputKeys;
+            events.clear();
+        return inputEvents;
     }
+
+    void getMousePos(double& x, double& y)
+    {
+        glfwGetCursorPos(window, &x, &y);
+    }
+
+    void hideMouse(){ glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);}
+    void showMouse(){ glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
+
+    void lockMouse(){ glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);}
+    void unlockMouse(){ glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);}
+
+    bool mouseHover(){ return glfwGetWindowAttrib(window, GLFW_HOVERED);}
 
     void framebufferResize(GLFWwindow* window, int width, int height);
     void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        keys.push_back(Key(key, scancode, action, mods));
+        events.push_back(Input(key, scancode, action, mods));
+    }
+    void mouseCallback(GLFWwindow* window, int button, int action, int mods)
+    {
+        events.push_back(Input(button, 0, action, mods));
     }
 
     void print()
@@ -65,6 +82,7 @@ namespace blue
 
         glfwSetFramebufferSizeCallback(window, framebufferResize);
         glfwSetKeyCallback(window, keyCallback);
+        glfwSetMouseButtonCallback(window, mouseCallback);
     }
 
     void clear(int r, int g, int b, int a = 255)
