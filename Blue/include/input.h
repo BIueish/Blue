@@ -14,11 +14,17 @@ namespace blue
         int scancode;
         int mods;
 
+        int x, y;
+
         Input(int key, int scancode, int action, int mods) :
             key(key), scancode(scancode), action(action), mods(mods)
         {}
 
         Input(){};
+
+        Input(int key, int x, int y) :
+            key(key), x(x), y(y)
+        {}
 
         const char* name();
 

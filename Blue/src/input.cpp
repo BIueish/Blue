@@ -38,6 +38,8 @@ namespace blue
             return "up";
         else if (key == GLFW_KEY_DOWN)
             return "down";
+        else if (key == 350)
+            return "scroll";
         return glfwGetKeyName(key, scancode);
     }
 

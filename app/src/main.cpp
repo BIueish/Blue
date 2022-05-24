@@ -22,7 +22,7 @@ int main()
     while (blue::running())
     {
         blue::clear(255, 255, 255, 255);
-        texture.render(0, 0, -1, -1, deg+45, 1.0f, 1.0f);
+        texture.render(0, 0, -1, -1, deg+45, mx, my);
         grass.render(mx+x, my+y, 64, 64, deg); 
         blue::update();
 

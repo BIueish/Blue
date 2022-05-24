@@ -19,7 +19,7 @@ namespace blue
 
         ~Texture();
 
-        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1, int degrees=0, float cx=0.5f, float cy=0.5f);
+        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1, int degrees=0, int cx=-1, int cy=-1);
 
     private:
         unsigned int loadTexture(const char* path, bool pixel);

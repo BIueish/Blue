@@ -47,6 +47,10 @@ namespace blue
     {
         events.push_back(Input(button, 0, action, mods));
     }
+    void scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+    {
+        events.push_back(Input(350, (int)xoffset, (int)yoffset));
+    }
 
     void print()
     {
@@ -83,6 +87,7 @@ namespace blue
         glfwSetFramebufferSizeCallback(window, framebufferResize);
         glfwSetKeyCallback(window, keyCallback);
         glfwSetMouseButtonCallback(window, mouseCallback);
+        glfwSetScrollCallback(window, scrollCallback);
     }
 
     void clear(int r, int g, int b, int a = 255)
