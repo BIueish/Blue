@@ -22,8 +22,8 @@ int main()
     while (blue::running())
     {
         blue::clear(255, 255, 255, 255);
-        texture.render(0, 0, -1, -1, deg+45, mx, my);
-        grass.render(mx+x, my+y, 64, 64, deg); 
+        texture.render(0, 0, -1, -1, 0, deg+45, mx, my);
+        grass.render(mx+x, my+y, 64, 64, 50, deg); 
         blue::update();
 
         blue::getMousePos(mx, my);

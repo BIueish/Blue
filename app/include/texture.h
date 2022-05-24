@@ -19,9 +19,16 @@ namespace blue
 
         ~Texture();
 
-        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1, int degrees=0, int cx=-1, int cy=-1);
+        void render(int x=0, int y=0, int dwidth=-1, int dheight=-1, int alpha=255, int degrees=0, int cx=-1, int cy=-1);
 
     private:
+
+        int translateLoc;
+        int scaleLoc;
+        int rotateLoc;
+        int centreLoc;
+        int alphaLoc;
+
         unsigned int loadTexture(const char* path, bool pixel);
 
         const char* vertexShader = "#version 330 core\n \
@@ -42,9 +49,11 @@ namespace blue
                                     in vec2 texPos; \n\
                                     out vec4 fragOut; \n\
                                     uniform sampler2D aTexture; \n\
+                                    uniform float alpha; \n\
                                     void main() \n\
                                     { \n\
-                                        fragOut = texture(aTexture, texPos); \n\
+                                        vec4 color = texture(aTexture, texPos);\n\
+                                        fragOut = vec4(color.x, color.y, color.z, clamp(color.w-alpha, 0.0, 1.0)); \n\
                                     }  ";
     
     };
