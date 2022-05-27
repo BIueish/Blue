@@ -89,7 +89,6 @@ namespace blue
             scaleLoc = glGetUniformLocation(shader, "scale");
             rotateLoc = glGetUniformLocation(shader, "rotate");
             centreLoc = glGetUniformLocation(shader, "centre");
-            alphaLoc = glGetUniformLocation(shader, "alpha");
 
             glUseProgram(0);
 
@@ -104,18 +103,24 @@ namespace blue
             glDeleteVertexArrays(1, &VAO);
         }
 
-        void Texture::render(int x, int y, int dwidth, int dheight, int alpha, int degrees, int cx, int cy)
+        void Texture::render(int x, int y, int dwidth, int dheight, int degrees, int cx, int cy)
         {
             glBindVertexArray(VAO);
             glUseProgram(shader);
 
             glUniform3f(translateLoc, (float)x/screenWidth*2.0f, -(float)y/screenHeight*2.0f, 0.0f);
 
+            glm::mat4 scale(1.0f);
+
             if (dheight > -1 && dwidth > -1)
-                glUniform3f(scaleLoc, (float)dwidth/width, (float)dheight/height, 1.0f);
+            {
+                scale = glm::scale(scale, glm::vec3(((float)dwidth/width), ((float)dheight/height), 1.0f));
+                glUniformMatrix4fv(scaleLoc, 1, GL_FALSE, glm::value_ptr(scale));
+            }
             else
             {
-                glUniform3f(scaleLoc, 1.0f, 1.0f, 1.0f);
+                scale = glm::scale(scale, glm::vec3(1.0f, 1.0f, 1.0f));
+                glUniformMatrix4fv(scaleLoc, 1, GL_FALSE, glm::value_ptr(scale));
                 dwidth = width;
                 dheight = height;
             }
@@ -133,8 +138,6 @@ namespace blue
             cy -= y;
 
             glUniform2f(centreLoc, (float)(dwidth*((float)cx/dwidth*2.0f))/screenWidth, -(float)(dheight*((float)cy/dheight*2.0f))/screenHeight);
-
-            glUniform1f(alphaLoc, (255.0f-alpha)/255.0f);
             
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);
