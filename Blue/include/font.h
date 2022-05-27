@@ -1,3 +1,6 @@
+#ifndef FONT_H
+#define FONT_H
+
 namespace blue
 {
     void initFonts();
@@ -8,3 +11,5 @@ namespace blue
     };
 
 }
+
+#endif

@@ -40,8 +40,8 @@ namespace blue
                                     uniform mat4 rotate;\n \
                                     uniform vec2 centre;\n \
                                     void main()\n \
-                                    { \n vec4 pos2 = ((vec4((pos+vec3(1.0, -1.0, 0.0))*scale, 1.0)-vec4(centre, 0.0, 0.0))*rotate)-vec4(vec2(1.0, -1.0)-centre, 0.0, 0.0);\n \
-                                        gl_Position = pos2+vec4(translate, 0.0);\n \
+                                    { \n vec4 pos2 = ((vec4(pos*scale, 1.0)-vec4(centre, 0.0, 0.0))*rotate)-vec4(vec2(1.0, -1.0)-centre, 0.0, 0.0);\n \
+                                        gl_Position = pos2+vec4(translate, 0.0f);\n \
                                         texPos = aTexPos;\n \
                                     }";
 
