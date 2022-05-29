@@ -19,6 +19,7 @@ int main()
     int deg = 0;
     int x = 0;
     int y = 0;
+    int width = 0;
     double mx = 0;
     double my = 0;
 
@@ -29,7 +30,7 @@ int main()
         blue::clear(0, 0, 0, 0);
         mars.render(blue::screenWidth/2-960/2, blue::screenHeight/2-600/2, 960, 600, 30);
         logo.render(blue::screenWidth/2-logo.width/2, blue::screenHeight/2-logo.height/2);
-        font.draw2D(blue::screenWidth/2, blue::screenHeight/2-32, "Blue", 64);
+        width = font.draw2D(blue::screenWidth/2-width/2, blue::screenHeight/2-32, "Blue", 64, 255, 255, 255, 255);
         mouse.render(mx, my, 32, 32);
         blue::update();
 

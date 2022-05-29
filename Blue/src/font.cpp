@@ -3,7 +3,7 @@
 #include <vector>
 #include "glad/glad.h"
 #include "msdfgl.h"
-#include "texture.h"
+#include "glm/glm.hpp"
 #include "blue.h"
 
 namespace blue
@@ -44,17 +44,24 @@ namespace blue
 
     Font::~Font()
     {
-        msdfgl_destroy_font(fonts[index]);
+        //msdfgl_destroy_font(fonts[index]);
+        free(fonts[index]);
     }
 
-    void Font::draw2D(int x, int y, const char* text, int height)
+    int Font::draw2D(int x, int y, const char* text, int height, int r, int g, int b, int a)
     {
         GLfloat projection[4][4];
 
         _msdfgl_ortho(0.0f, screenWidth, screenHeight, 0.0f, -1.0f, 1.0f, projection);
 
         /*            x    y           size  color       4x4 projection-matrix  flags */
-        msdfgl_printf((float)x, (float)(y+height), fonts[index], (float)height, 0xffffffff, (GLfloat *)projection, MSDFGL_KERNING,
+        unsigned int color = (unsigned int)((glm::floor(r/16)*256*256*256*16)+((r%16)*256*256*256)+(glm::floor(g/16)*256*256*16)+((g%16)*256*256)+(glm::floor(b/16)*256*16)+((b%16)*256)+(glm::floor(a/16)*16)+(a%16));
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        float x1 = msdfgl_printf((float)x, (float)(y+height), fonts[index], (float)height, color, (GLfloat *)projection, MSDFGL_KERNING,
                     text, MSDFGL_VERSION);
+        glDisable(GL_BLEND);
+
+        return x1-x;
     }
 }

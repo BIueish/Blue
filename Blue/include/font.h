@@ -13,7 +13,7 @@ namespace blue
 
         ~Font();
 
-        void draw2D(int x, int y, const char* text, int height);
+        int draw2D(int x, int y, const char* text, int height, int r, int g, int b, int a=255);
 
         int height;
 
