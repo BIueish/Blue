@@ -6,7 +6,8 @@ C++ 2D/3D rendering library (WIP)
 - Creating Windows
 - Drawing Textures (Scaled, Rotated around custom point, etc)
 - Input (Keyboard and Mouse)
-- Text (WIP)
+- Text (Custom fonts and size. Only one color though WIP)
+- Shapes (WIP)
 - 3D objects and model loading (In planning)
 - Lighting (In planning)
 - Custom Shaders (In planning)
@@ -24,4 +25,4 @@ Use premake5
 
 ## Dependencies
 
-glfw and it's dependencies
+glfw and it's dependencies, msdfgl and freetype
