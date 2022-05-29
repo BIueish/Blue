@@ -2,6 +2,7 @@
 #include "texture.h"
 #include "input.h"
 #include "font.h"
+#include "shape.h"
 #include <iostream>
 
 int main()
@@ -13,6 +14,8 @@ int main()
     blue::Texture mars("./data/mars.jpeg");
     blue::Texture logo("./data/logo.png");
     blue::Texture mouse("./data/mouse.png");
+
+    blue::Line test;
 
     blue::Font font("./data/Roboto.ttf");
 
@@ -30,8 +33,9 @@ int main()
         blue::clear(0, 0, 0, 0);
         mars.render(blue::screenWidth/2-960/2, blue::screenHeight/2-600/2, 960, 600, 30);
         logo.render(blue::screenWidth/2-logo.width/2, blue::screenHeight/2-logo.height/2);
-        width = font.draw2D(blue::screenWidth/2-width/2, blue::screenHeight/2-32, "Blue", 64, 255, 255, 255, 255);
+        width = font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255);
         mouse.render(mx, my, 32, 32);
+        test.draw(0, 0, 200, 200, 255, 255, 255);
         blue::update();
 
         blue::getMousePos(mx, my);

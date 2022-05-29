@@ -3,6 +3,7 @@
 #include "texture.cpp"
 #include "input.cpp"
 #include "font.cpp"
+#include "shape.cpp"
 #include "glad/glad.h"
 #include "glfw/glfw3.h"
 #include <iostream>
