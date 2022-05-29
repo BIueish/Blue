@@ -16,6 +16,8 @@ namespace blue
         unsigned int shader;
 
         Texture(const char* path, bool pixel=false);
+        Texture(unsigned char* bitmap, int width, int height);
+        Texture(unsigned int textureID, int width, int height);
 
         ~Texture();
 

@@ -205,7 +205,17 @@ obj/blue.o: src/blue.cpp include/blue.h include/input.h src/texture.cpp \
   include/glm/gtc/../mat2x4.hpp include/glm/gtc/../mat3x2.hpp \
   include/glm/gtc/../mat3x3.hpp include/glm/gtc/../mat3x4.hpp \
   include/glm/gtc/../mat4x2.hpp include/glm/gtc/../mat4x3.hpp \
-  include/glm/gtc/type_ptr.inl src/input.cpp include/glfw/glfw3.h
+  include/glm/gtc/type_ptr.inl src/input.cpp include/glfw/glfw3.h \
+  src/font.cpp include/font.h include/msdfgl.h include/ft2build.h \
+  include/freetype/config/ftheader.h include/freetype/freetype.h \
+  include/freetype/config/ftconfig.h include/freetype/config/ftoption.h \
+  include/freetype/config/ftstdlib.h \
+  include/freetype/config/integer-types.h \
+  include/freetype/config/public-macros.h \
+  include/freetype/config/mac-support.h include/freetype/fttypes.h \
+  include/freetype/ftsystem.h include/freetype/ftimage.h \
+  include/freetype/fterrors.h include/freetype/ftmoderr.h \
+  include/freetype/fterrdef.h include/freetype/ftoutln.h
 
 include/blue.h:
 
@@ -720,3 +730,41 @@ include/glm/gtc/type_ptr.inl:
 src/input.cpp:
 
 include/glfw/glfw3.h:
+
+src/font.cpp:
+
+include/font.h:
+
+include/msdfgl.h:
+
+include/ft2build.h:
+
+include/freetype/config/ftheader.h:
+
+include/freetype/freetype.h:
+
+include/freetype/config/ftconfig.h:
+
+include/freetype/config/ftoption.h:
+
+include/freetype/config/ftstdlib.h:
+
+include/freetype/config/integer-types.h:
+
+include/freetype/config/public-macros.h:
+
+include/freetype/config/mac-support.h:
+
+include/freetype/fttypes.h:
+
+include/freetype/ftsystem.h:
+
+include/freetype/ftimage.h:
+
+include/freetype/fterrors.h:
+
+include/freetype/ftmoderr.h:
+
+include/freetype/fterrdef.h:
+
+include/freetype/ftoutln.h:

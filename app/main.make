@@ -21,7 +21,7 @@ ifeq ($(config),release)
     AR = ar
   endif
   TARGETDIR = bin/Release
-  TARGET = $(TARGETDIR)/main.app
+  TARGET = $(TARGETDIR)/main
   OBJDIR = obj
   DEFINES +=
   INCLUDES += -Iinclude
@@ -30,7 +30,7 @@ ifeq ($(config),release)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS)
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -framework Cocoa -framework IOKit -framework CoreVideo -framework OpenGL -lblue -lglfw3
+  LIBS += -framework Cocoa -framework IOKit -framework CoreVideo -framework OpenGL -lblue -lglfw3 -lmsdfgl
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -Llib
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -40,11 +40,8 @@ ifeq ($(config),release)
   endef
   define POSTBUILDCMDS
   endef
-all: prebuild prelink $(TARGET) $(dir $(TARGETDIR))PkgInfo $(dir $(TARGETDIR))Info.plist
+all: prebuild prelink $(TARGET)
 	@:
-
-$(dir $(TARGETDIR))PkgInfo:
-$(dir $(TARGETDIR))Info.plist:
 
 endif
 

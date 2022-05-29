@@ -30,7 +30,7 @@ ifeq ($(config),release)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS)
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -framework Cocoa -framework IOKit -framework CoreVideo -framework OpenGL -lglfw3
+  LIBS += -framework Cocoa -framework IOKit -framework CoreVideo -framework OpenGL -lglfw3 -lmsdfgl -lfreetype
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -Llib
   LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
@@ -47,7 +47,9 @@ endif
 
 OBJECTS := \
 	$(OBJDIR)/blue.o \
+	$(OBJDIR)/font.o \
 	$(OBJDIR)/glad.o \
+	$(OBJDIR)/input.o \
 	$(OBJDIR)/texture.o \
 
 RESOURCES := \
@@ -110,9 +112,15 @@ endif
 $(OBJDIR)/blue.o: src/blue.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/font.o: src/font.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/glad.o: src/glad.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/input.o: src/input.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/texture.o: src/texture.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
