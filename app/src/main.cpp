@@ -30,12 +30,12 @@ int main()
 
     while (blue::running())
     {
-        blue::clear(0, 0, 0, 0);
-        mars.render(blue::screenWidth/2-960/2, blue::screenHeight/2-600/2, 960, 600, 30);
+        blue::clear(0, 0, 0, 255);
+        mars.render(blue::screenWidth/2-960/2, blue::screenHeight/2-600/2, 960, 600, -30);
         logo.render(blue::screenWidth/2-logo.width/2, blue::screenHeight/2-logo.height/2);
         width = font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255);
         mouse.render(mx, my, 32, 32);
-        test.draw(0, 0, 200, 200, 255, 255, 255);
+        test.draw(0, 0, 200, 200, 0, 0, 255);
         blue::update();
 
         blue::getMousePos(mx, my);

@@ -17,8 +17,8 @@ namespace blue
         {
             textureID = loadTexture(path, pixel);
             float vertices[] = {1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-                                1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-                                0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+                                1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+                                0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
                                 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
             unsigned int indices[] = {0, 1, 3, 1, 2, 3};
@@ -89,6 +89,7 @@ namespace blue
             scaleLoc = glGetUniformLocation(shader, "scale");
             rotateLoc = glGetUniformLocation(shader, "rotate");
             centreLoc = glGetUniformLocation(shader, "centre");
+            orthoLoc = glGetUniformLocation(shader, "ortho");
 
             glUseProgram(0);
 
@@ -184,6 +185,7 @@ namespace blue
             scaleLoc = glGetUniformLocation(shader, "scale");
             rotateLoc = glGetUniformLocation(shader, "rotate");
             centreLoc = glGetUniformLocation(shader, "centre");
+            orthoLoc = glGetUniformLocation(shader, "ortho");
 
             glUseProgram(0);
         }
@@ -264,6 +266,7 @@ namespace blue
             scaleLoc = glGetUniformLocation(shader, "scale");
             rotateLoc = glGetUniformLocation(shader, "rotate");
             centreLoc = glGetUniformLocation(shader, "centre");
+            orthoLoc = glGetUniformLocation(shader, "ortho");
 
             glUseProgram(0);
         }
@@ -286,27 +289,25 @@ namespace blue
             //translate = glm::translate(translate, glm::vec3((float)x/screenWidth*2.0f, -(float)y/screenHeight*2.0f, 0.0f));
             //translate = glm::scale(translate, glm::vec3(1.0f, ((float)screenWidth/screenHeight), 1.0f));
 
-            glUniform3f(translateLoc, (float)x/screenWidth*2.0f, -(float)y/screenHeight*2.0f, 0.0f);
+            glUniform3f(translateLoc, (float)x, (float)y, 0.0f);
 
             glm::mat4 scale(1.0f);
 
             if (dheight > -1 && dwidth > -1)
             {
-                scale = glm::scale(scale, glm::vec3((float)dwidth/screenWidth*2.0f, (float)dheight/screenHeight*2.0f, 1.0f));
+                scale = glm::scale(scale, glm::vec3((float)dwidth, (float)dheight, 1.0f));
                 glUniformMatrix4fv(scaleLoc, 1, GL_FALSE, glm::value_ptr(scale));
             }
             else
             {
                 dwidth = width;
                 dheight = height;
-                scale = glm::scale(scale, glm::vec3((float)dwidth/screenWidth*2.0f, (float)dheight/screenHeight*2.0f, 1.0f));
+                scale = glm::scale(scale, glm::vec3((float)dwidth, (float)dheight, 1.0f));
                 glUniformMatrix4fv(scaleLoc, 1, GL_FALSE, glm::value_ptr(scale));
             }
 
             glm::mat4 rotate(1.0f);
-            if (degrees != 0)
-                rotate = glm::scale(rotate, glm::vec3(1.0f, (float)screenHeight/screenWidth, 1.0f));
-            rotate = glm::rotate(rotate, glm::radians((float)degrees), glm::vec3(0.0, 0.0, 1.0));
+            rotate = glm::rotate(rotate, glm::radians((float)degrees), glm::vec3(0.0f, 0.0f, 1.0f));
             glUniformMatrix4fv(rotateLoc, 1, GL_FALSE, glm::value_ptr(rotate));
 
             if (cx == -1)
@@ -317,7 +318,10 @@ namespace blue
             cx -= x;
             cy -= y;
 
-            glUniform2f(centreLoc, (float)(dwidth*((float)cx/dwidth*2.0f))/screenWidth, -(float)(dheight*((float)cy/dheight*2.0f))/screenHeight);
+            glUniform2f(centreLoc, (float)cx, (float)cy);
+
+            glm::mat4 ortho = glm::ortho(0.0f, (float)screenWidth, (float)screenHeight, 0.0f, -1.0f, 1.0f);
+            glUniformMatrix4fv(orthoLoc, 1, GL_FALSE, glm::value_ptr(ortho));
             
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureID);
