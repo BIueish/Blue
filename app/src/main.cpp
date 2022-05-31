@@ -43,7 +43,7 @@ int main()
             else
                 test.draw(x, 0, x, blue::screenHeight, 0, 200, 0, 50);
         }
-        font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255);
+        font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255, 0, 0, 255, 100);
         mouse.render(mx, my, 32, 32);
         blue::update();
 

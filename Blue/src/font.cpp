@@ -40,7 +40,7 @@ namespace blue
         //font = msdfgl_load_font(context, file, 4.0, 2.0, NULL); /* range, scale, atlas (NULL creates a new one) */
 
         /* Loads characters 0-128 onto the textures. This is where all the GPU cycles went. */
-        msdfgl_generate_ascii(fonts[index]);
+        msdfgl_generate_ascii_ext(fonts[index]);
     }
 
     Font::~Font()
@@ -49,7 +49,7 @@ namespace blue
         free(fonts[index]);
     }
 
-    int Font::draw2D(int x, int y, const char* text, int height, int r, int g, int b, int a)
+    int Font::draw2D(int x, int y, const char* text, int height, int r, int g, int b, int a, int br, int bg, int bb, int ba)
     {
         GLfloat projection[4][4];
 
@@ -62,6 +62,12 @@ namespace blue
         float x1 = msdfgl_printf((float)x, (float)(y+height), fonts[index], (float)height, color, (GLfloat *)projection, MSDFGL_KERNING,
                     text, MSDFGL_VERSION);
         glDisable(GL_BLEND);
+
+        if (ba > 0)
+        {
+            static Rectangle back;
+            back.draw(x, y, x1-x, height, br, bg, bb, ba);
+        }
 
         return x1-x;
     }

@@ -215,8 +215,8 @@ obj/blue.o: src/blue.cpp include/blue.h include/input.h src/texture.cpp \
   include/freetype/config/mac-support.h include/freetype/fttypes.h \
   include/freetype/ftsystem.h include/freetype/ftimage.h \
   include/freetype/fterrors.h include/freetype/ftmoderr.h \
-  include/freetype/fterrdef.h include/freetype/ftoutln.h src/shape.cpp \
-  include/shape.h
+  include/freetype/fterrdef.h include/freetype/ftoutln.h include/shape.h \
+  src/shape.cpp
 
 include/blue.h:
 
@@ -770,6 +770,6 @@ include/freetype/fterrdef.h:
 
 include/freetype/ftoutln.h:
 
-src/shape.cpp:
-
 include/shape.h:
+
+src/shape.cpp:

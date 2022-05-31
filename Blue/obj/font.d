@@ -131,7 +131,7 @@ obj/font.o: src/font.cpp include/font.h include/glad/glad.h \
   include/glm/detail/type_half.inl include/glm/geometric.hpp \
   include/glm/matrix.hpp include/glm/vector_relational.hpp \
   include/glm/integer.hpp include/glm/detail/func_integer.inl \
-  include/blue.h include/input.h
+  include/blue.h include/input.h include/shape.h
 
 include/font.h:
 
@@ -474,3 +474,5 @@ include/glm/detail/func_integer.inl:
 include/blue.h:
 
 include/input.h:
+
+include/shape.h:
