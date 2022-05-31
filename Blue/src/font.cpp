@@ -5,12 +5,13 @@
 #include "msdfgl.h"
 #include "glm/glm.hpp"
 #include "blue.h"
+#include "shape.h"
 
 namespace blue
 {
     msdfgl_context_t context;
 
-    std::vector<msdfgl_font_t> fonts; 
+    std::vector<msdfgl_font_t> fonts;
 
     void initFonts()
     {

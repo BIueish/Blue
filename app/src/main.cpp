@@ -19,10 +19,6 @@ int main()
 
     blue::Font font("./data/Roboto.ttf");
 
-    int deg = 0;
-    int x = 0;
-    int y = 0;
-    int width = 0;
     double mx = 0;
     double my = 0;
 
@@ -33,9 +29,22 @@ int main()
         blue::clear(0, 0, 0, 255);
         mars.render(blue::screenWidth/2-960/2, blue::screenHeight/2-600/2, 960, 600, -30);
         logo.render(blue::screenWidth/2-logo.width/2, blue::screenHeight/2-logo.height/2);
-        width = font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255);
+        for (int y = 20; y < blue::screenHeight; y+= 20)
+        {
+            if (abs(my-y)<=3)
+                test.draw(0, y, blue::screenWidth, y, 0, 200, 0, 100);
+            else
+                test.draw(0, y, blue::screenWidth, y, 0, 200, 0, 50);
+        }
+        for (int x = 20; x < blue::screenWidth; x+= 20)
+        {
+            if (abs(mx-x)<=3)
+                test.draw(x, 0, x, blue::screenHeight, 0, 200, 0, 100);
+            else
+                test.draw(x, 0, x, blue::screenHeight, 0, 200, 0, 50);
+        }
+        font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255);
         mouse.render(mx, my, 32, 32);
-        test.draw(0, 0, 200, 200, 0, 0, 255);
         blue::update();
 
         blue::getMousePos(mx, my);
@@ -44,22 +53,12 @@ int main()
         {
             if (key.action == BLUE_DOWN || key.action == BLUE_PRESS)
             {
-                if (key == "w")
-                    y -= 5;
-                else if (key == "s")
-                    y += 5;
-                if (key == "a")
-                    x -= 5;
-                else if (key == "d")
-                    x += 5;
                 if (key == "left-button")
                     blue::hideMouse();
                 if (key == "escape")
                     blue::showMouse();
             }
         }
-
-        //deg += 2;
     }
 
     blue::deinitFonts();
