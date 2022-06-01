@@ -1,6 +1,8 @@
 # Blue
 C++ 2D/3D rendering library (WIP)
 
+![text2](https://user-images.githubusercontent.com/97386872/171378609-1ad7c22d-479e-4ac5-bbc7-58d2be6ef205.svg)
+
 ## Current Features
 
 - Creating Windows
