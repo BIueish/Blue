@@ -11,7 +11,7 @@ C++ 2D/3D rendering library (WIP)
 - 3D objects and model loading (WIP)
 - Lighting (WIP)
 - Custom Shaders (In planning)
-- Bloom, SSAO, Skybox, Normal mapping etc. (Not decided, may be removed)
+- Bloom, SSAO, Skybox, Normal mapping, Shadow mapping etc. (Not decided, may be removed)
 - Music (Not decided, may be removed)
 
 
