@@ -216,7 +216,8 @@ obj/blue.o: src/blue.cpp include/blue.h include/input.h src/texture.cpp \
   include/freetype/ftsystem.h include/freetype/ftimage.h \
   include/freetype/fterrors.h include/freetype/ftmoderr.h \
   include/freetype/fterrdef.h include/freetype/ftoutln.h include/shape.h \
-  src/shape.cpp
+  src/shape.cpp src/mesh.cpp include/mesh.h src/renderer.cpp \
+  include/renderer.h include/camera.h src/camera.cpp
 
 include/blue.h:
 
@@ -773,3 +774,15 @@ include/freetype/ftoutln.h:
 include/shape.h:
 
 src/shape.cpp:
+
+src/mesh.cpp:
+
+include/mesh.h:
+
+src/renderer.cpp:
+
+include/renderer.h:
+
+include/camera.h:
+
+src/camera.cpp:

@@ -375,7 +375,7 @@ namespace blue
             }
             else
             {
-                std::cout << "Texture failed to load at path: " << path << std::endl;
+                std::cout << "Texture failed to load at path: " << path << "\n";
                 stbi_image_free(data);
             }
 

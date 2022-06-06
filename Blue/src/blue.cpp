@@ -4,6 +4,9 @@
 #include "input.cpp"
 #include "font.cpp"
 #include "shape.cpp"
+#include "mesh.cpp"
+#include "renderer.cpp"
+#include "camera.cpp"
 #include "glad/glad.h"
 #include "glfw/glfw3.h"
 #include <iostream>
@@ -90,6 +93,7 @@ namespace blue
         glfwSetKeyCallback(window, keyCallback);
         glfwSetMouseButtonCallback(window, mouseCallback);
         glfwSetScrollCallback(window, scrollCallback);
+        glEnable(GL_DEPTH_TEST);
     }
 
     void clear(int r, int g, int b, int a = 255)
@@ -100,7 +104,7 @@ namespace blue
         a /= 255;
 
         glClearColor(r, g, b, a);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void update()

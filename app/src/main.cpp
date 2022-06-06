@@ -3,6 +3,9 @@
 #include "input.h"
 #include "font.h"
 #include "shape.h"
+#include "mesh.h"
+#include "renderer.h"
+#include "camera.h"
 #include <iostream>
 
 int main()
@@ -19,35 +22,83 @@ int main()
 
     blue::Font font("./data/Roboto.ttf");
 
+    float vertices[] = {
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+
+        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+
+        -0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f, -0.5f,
+         0.5f, -0.5f,  0.5f,
+         0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f, -0.5f,
+         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f, -0.5f
+    };
+
+    float uv[] = {0.0f, 0.0f,1.0f, 0.0f,1.0f, 1.0f,1.0f, 1.0f,0.0f, 1.0f,0.0f, 0.0f,
+                0.0f, 0.0f,1.0f, 0.0f,1.0f, 1.0f,1.0f, 1.0f,0.0f, 1.0f,0.0f, 0.0f,
+                1.0f, 0.0f,1.0f, 1.0f,0.0f, 1.0f,0.0f, 1.0f,0.0f, 0.0f,1.0f, 0.0f,
+                1.0f, 0.0f,1.0f, 1.0f,0.0f, 1.0f,0.0f, 1.0f,0.0f, 0.0f,1.0f, 0.0f,
+                0.0f, 1.0f,1.0f, 1.0f,1.0f, 0.0f,1.0f, 0.0f,0.0f, 0.0f,0.0f, 1.0f,
+                0.0f, 1.0f,1.0f, 1.0f,1.0f, 0.0f,1.0f, 0.0f,0.0f, 0.0f,0.0f, 1.0f};
+
+    blue::Renderer renderer;
+    blue::Camera camera(0.0f, 0.0f, 3.0f, -90.0f, 0.0f, 0.0f, 70.0f);
+    blue::Mesh mesh;
+    mesh.setupMesh(std::vector<float>(std::begin(vertices), std::end(vertices)), std::vector<unsigned int>(), std::vector<float>(std::begin(uv), std::end(uv)), std::vector<float>());
+    mesh.addTexture("./data/container.png");
+    float sensitivity = 5.0f;
+
     double mx = 0;
     double my = 0;
+
+    int deg = 0;
 
     blue::hideMouse();
 
     while (blue::running())
     {
         blue::clear(0, 0, 0, 255);
-        mars.render(blue::screenWidth/2-960/2, blue::screenHeight/2-600/2, 960, 600, -30);
-        logo.render(blue::screenWidth/2-logo.width/2, blue::screenHeight/2-logo.height/2);
-        for (int y = 20; y < blue::screenHeight; y+= 20)
-        {
-            if (abs(my-y)<=3)
-                test.draw(0, y, blue::screenWidth, y, 0, 200, 0, 100);
-            else
-                test.draw(0, y, blue::screenWidth, y, 0, 200, 0, 50);
-        }
-        for (int x = 20; x < blue::screenWidth; x+= 20)
-        {
-            if (abs(mx-x)<=3)
-                test.draw(x, 0, x, blue::screenHeight, 0, 200, 0, 100);
-            else
-                test.draw(x, 0, x, blue::screenHeight, 0, 200, 0, 50);
-        }
         font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255, 0, 0, 255, 100);
+        renderer.drawMesh(mesh, camera, renderer.textureShader, 45.0f, (float)deg, 15.0f);
         mouse.render(mx, my, 32, 32);
         blue::update();
 
         blue::getMousePos(mx, my);
+
+        camera.yaw = -90.0f+(mx-blue::screenWidth/2.0f)/sensitivity;
+        camera.pitch = -(my-blue::screenWidth/2.0f)/sensitivity;
 
         for (blue::Input key : blue::processEvents())
         {
@@ -57,8 +108,22 @@ int main()
                     blue::hideMouse();
                 if (key == "escape")
                     blue::showMouse();
+                if (key == "w")
+                {
+                    camera.y += 0.1f*camera.fy;
+                    camera.x += 0.1f*camera.fx;
+                    camera.z += 0.1f*camera.fz;
+                }
+                if (key == "s")
+                {
+                    camera.y -= 0.1f*camera.fy;
+                    camera.x -= 0.1f*camera.fx;
+                    camera.z -= 0.1f*camera.fz;
+                }
             }
         }
+
+        deg += 2;
     }
 
     blue::deinitFonts();
