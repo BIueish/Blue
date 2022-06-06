@@ -46,6 +46,9 @@ namespace blue
                           fragOut = texture(tex, texPos);\n\
                           }";
         textureShader = loadShader(vertexSource, fragmentSource);
+        glUseProgram(textureShader);
+        glUniform1i(glGetUniformLocation(textureShader, "tex"), 0);
+        glUseProgram(0);
     }
 
     void Renderer::drawMesh(Mesh& mesh, Camera& camera, unsigned int shader, float rotx, float roty , float rotz)
@@ -56,10 +59,6 @@ namespace blue
         glm::mat4 proj(1.0f);
         glm::mat4 model(1.0f);
         glm::mat4 view(1.0f);
-        if (shader == textureShader)
-        {
-            glUniform1i(glGetUniformLocation(shader, "tex"), 0);
-        }
         camera.calculate();
         proj = glm::perspective(camera.fov, (float)screenWidth/screenHeight, 0.1f, 100.0f);
         view = glm::lookAt(glm::vec3(camera.x, camera.y, camera.z), glm::vec3(camera.x+camera.fx, camera.y+camera.fy, camera.z+camera.fz), glm::vec3(0.0f, 1.0f, 0.0f));

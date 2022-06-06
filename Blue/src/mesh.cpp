@@ -22,17 +22,20 @@ namespace blue
 
         std::vector<float> data;
         float stride = sizeof(float)*3;
-        count = positions.size();
-        for (int i = 0; i < positions.size(); i++)
-        {
-            data.push_back(positions[i]);
-        }
         if (texture)
         {
             stride += sizeof(float)*2;
-            for (int i = 0; i < uv.size(); i++)
+        }
+        count = positions.size();
+        for (int i = 0; i < positions.size(); i += 3)
+        {
+            data.push_back(positions[i]);
+            data.push_back(positions[i+1]);
+            data.push_back(positions[i+2]);
+            if (texture)
             {
-                data.push_back(uv[i]);
+                data.push_back(uv[i*2/3]);
+                data.push_back(uv[i*2/3+1]);
             }
         }
         if (color)
@@ -57,21 +60,21 @@ namespace blue
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
         }
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float)*3, (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
         glEnableVertexAttribArray(0);
-        size_t offset = positions.size()*sizeof(float);
+        size_t offset = sizeof(float)*3;
 
         if (texture)
         {
             glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float)*2, (void*)offset);
-            offset += uv.size()*sizeof(float);
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)offset);
+            offset += 2*sizeof(float);
         }
         if (color)
         {
             glEnableVertexAttribArray(2);
-            glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(float)*4, (void*)offset);
-            offset += colors.size()*sizeof(float);
+            glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, stride, (void*)offset);
+            offset += 4*sizeof(float);
         }
 
         glBindVertexArray(0);
