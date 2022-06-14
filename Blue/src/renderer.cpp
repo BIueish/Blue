@@ -25,7 +25,12 @@ namespace blue
                                     fragOut = vec4(0.0, 1.0, 1.0, 1.0);\n\
                                     }";
 
-        colorShader = loadShader(vertexSource, fragmentSource);
+        colorShader.shader = loadShader(vertexSource, fragmentSource);
+        glUseProgram(colorShader.shader);
+        colorShader.projectionLoc = glGetUniformLocation(textureShader.shader, "projection");
+        colorShader.modelLoc = glGetUniformLocation(textureShader.shader, "model");
+        colorShader.viewLoc = glGetUniformLocation(textureShader.shader, "view");
+        glUseProgram(0);
 
         vertexSource = "#version 330 core\n\
                         layout (location = 0) in vec3 pos;\n\
@@ -45,16 +50,35 @@ namespace blue
                           void main(){\n\
                           fragOut = texture(tex, texPos);\n\
                           }";
-        textureShader = loadShader(vertexSource, fragmentSource);
-        glUseProgram(textureShader);
-        glUniform1i(glGetUniformLocation(textureShader, "tex"), 0);
+        textureShader.shader = loadShader(vertexSource, fragmentSource);
+        glUseProgram(textureShader.shader);
+        glUniform1i(glGetUniformLocation(textureShader.shader, "tex"), 0);
+        textureShader.projectionLoc = glGetUniformLocation(textureShader.shader, "projection");
+        textureShader.modelLoc = glGetUniformLocation(textureShader.shader, "model");
+        textureShader.viewLoc = glGetUniformLocation(textureShader.shader, "view");
         glUseProgram(0);
+
+        vertexSource = "#version 330 core\n\
+                        layout (location = 0) in vec3 pos;\n\
+                        layout (location = 1) in vec2 tex;\n\
+                        out vec2 texPos;\n\
+                        out vec3 fragPos;\n\
+                        uniform mat4 projection;\n\
+                        uniform mat4 model;\n\
+                        uniform mat4 view;\n\
+                        void main(){\n\
+                        fragPos = view*model*vec4(pos, 1.0f);\n\
+                        gl_Position = fragPos*projection;
+                        texPos = tex;\n\
+                        }";
+        fragmentSource = "";
+        textureLightShader.shader = loadShader(vertexSource, fragmentSource);
     }
 
-    void Renderer::drawMesh(Mesh& mesh, Camera& camera, unsigned int shader, float rotx, float roty , float rotz)
+    void Renderer::drawMesh(Mesh& mesh, Camera& camera, Shader shader, float rotx, float roty , float rotz)
     {
         glBindVertexArray(mesh.VAO);
-        glUseProgram(shader);
+        glUseProgram(shader.shader);
         mesh.bindTextures();
         glm::mat4 proj(1.0f);
         glm::mat4 model(1.0f);
@@ -65,9 +89,9 @@ namespace blue
         model = glm::rotate(model, glm::radians(rotx), glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::rotate(model, glm::radians(roty), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::rotate(model, glm::radians(rotz), glm::vec3(0.0f, 0.0f, 1.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(proj));
-        glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(shader.projectionLoc, 1, GL_FALSE, glm::value_ptr(proj));
+        glUniformMatrix4fv(shader.viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(shader.modelLoc, 1, GL_FALSE, glm::value_ptr(model));
         if (mesh.indice)
         {
             

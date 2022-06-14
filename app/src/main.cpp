@@ -14,11 +14,7 @@ int main()
     blue::createWindow("Blue", 900, 900, true);
     blue::initFonts();
 
-    blue::Texture mars("./data/mars.jpeg");
-    blue::Texture logo("./data/logo.png");
     blue::Texture mouse("./data/mouse.png");
-
-    blue::Line test;
 
     blue::Font font("./data/Roboto.ttf");
 
@@ -117,13 +113,13 @@ int main()
 
     int deg = 0;
 
-    blue::hideMouse();
+    blue::lockMouse();
 
     while (blue::running())
     {
         blue::clear(0, 0, 0, 255);
         font.draw2D(0, 0, "Blue", 64, 255, 255, 255, 255, 0, 0, 255, 100);
-        renderer.drawMesh(mesh, camera, renderer.textureShader, 45.0f, (float)deg, 15.0f);
+        renderer.drawMesh(mesh, camera, renderer.textureShader, 0.0f, 0.0f, 0.0f);
         mouse.render(mx, my, 32, 32);
         blue::update();
 
@@ -137,25 +133,35 @@ int main()
             if (key.action == BLUE_DOWN || key.action == BLUE_PRESS)
             {
                 if (key == "left-button")
-                    blue::hideMouse();
+                    blue::lockMouse();
                 if (key == "escape")
-                    blue::showMouse();
+                    blue::unlockMouse();
                 if (key == "w")
                 {
-                    camera.y += 0.1f*camera.fy;
-                    camera.x += 0.1f*camera.fx;
-                    camera.z += 0.1f*camera.fz;
+                    camera.y += 0.2f*camera.fy;
+                    camera.x += 0.2f*camera.fx;
+                    camera.z += 0.2f*camera.fz;
                 }
                 if (key == "s")
                 {
-                    camera.y -= 0.1f*camera.fy;
-                    camera.x -= 0.1f*camera.fx;
-                    camera.z -= 0.1f*camera.fz;
+                    camera.y -= 0.2f*camera.fy;
+                    camera.x -= 0.2f*camera.fx;
+                    camera.z -= 0.2f*camera.fz;
+                }
+                if (key == "a")
+                {
+                    camera.y += 0.1f*camera.ry;
+                    camera.x += 0.1f*camera.rx;
+                    camera.z += 0.1f*camera.rz;
+                }
+                if (key == "d")
+                {
+                    camera.y -= 0.1f*camera.ry;
+                    camera.x -= 0.1f*camera.rx;
+                    camera.z -= 0.1f*camera.rz;
                 }
             }
         }
-
-        deg += 2;
     }
 
     blue::deinitFonts();
