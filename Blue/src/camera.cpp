@@ -14,8 +14,12 @@ namespace blue
         fy = sin(glm::radians(pitch));
         fz = sin(glm::radians(yaw))*cos(glm::radians(pitch));
         glm::vec3 front = glm::normalize(glm::vec3(fx, fy, fz));
+        glm::vec3 right = glm::cross(front, glm::vec3(0.0f, 1.0f, 0.0f));
         fx = front.x;
         fy = front.y;
         fz = front.z;
+        rx = right.x;
+        ry = right.y;
+        rz = right.z;
     }
 }

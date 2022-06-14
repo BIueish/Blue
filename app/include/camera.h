@@ -10,6 +10,7 @@ namespace blue
         float yaw, pitch, roll;
         float fov;
         float fx, fy, fz;
+        float rx, ry, rz;
 
         Camera(float x, float y, float z, float yaw, float pitch, float roll, float fov);
         void calculate();

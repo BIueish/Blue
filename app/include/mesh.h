@@ -20,6 +20,7 @@ namespace blue
         
         void setupMesh(std::vector<float> positions, std::vector<unsigned int> indices, std::vector<float> uv, std::vector<float> colors);
         void addTexture(const char* path, bool pixel=false);
+        void bindTextures();
     };
 }
 
